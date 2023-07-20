@@ -1,0 +1,14 @@
+from google.colab import drive
+drive.mount('/content/gdrive')
+//Get the code and models
+!git clone https://github.com/Rudrabha/Wav2Lip.git
+!ls
+!cp -ri "/content/gdrive/My Drive/Projects/wav2lip/weights/wav2lip_gan.pth" /content/Wav2Lip/checkpoints/
+//Get the pre-requisites
+!pip uninstall tensorflow tensorflow-gpu
+!cd Wav2Lip && pip install -r requirements.txt
+!wget "https://www.adrianbulat.com/downloads/python-fan/s3fd-619a316812.pth" -O "Wav2Lip/face_detection/detection/sfd/s3fd.pth"
+!cp "/content/gdrive/My Drive/Projects/wav2lip/input/videoplayback.mp4" "/content/gdrive/My Drive/Projects/wav2lip/input/output10.wav" sample_data/
+!ls sample_data/
+// Change the Video and Audio file names here as well
+!cd Wav2Lip && python inference.py --checkpoint_path checkpoints/wav2lip_gan.pth --face "../sample_data/videoplayback.mp4" --audio "../sample_data/output10.wav"
